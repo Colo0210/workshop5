@@ -133,14 +133,14 @@ public class DealershipManager {
             System.out.println("Error loading inventory from file: " + e.getMessage());
         }
         // You can add some vehicles here as an example
-        dealership.addVehicle(new Vehicle("1", "Toyota", "Corolla", 2020, 20000, "Blue", 10000, "Sedan"));
-        dealership.addVehicle(new Vehicle("2", "Honda", "Civic", 2021, 25000, "Red", 5000, "Sedan"));
-        dealership.addVehicle(new Vehicle("3", "Ford", "Mustang", 2019, 30000, "Blue", 20000, "Coupe"));
-        dealership.addVehicle(new Vehicle("4", "Tesla", "Model 3", 2022, 40000, "White", 1000, "Sedan"));
-        dealership.addVehicle(new Vehicle("5", "Nissan", "R34", 2002, 150000, "Blue", 60000, "Car"));
-        dealership.addVehicle(new Vehicle("6", "Nissan", "240Z", 1971, 40000, "Red", 30000, "Car"));
-        dealership.addVehicle(new Vehicle("7", "Chevrolet", "Impala", 1969, 30000, "Black", 80000, "Car"));
-        dealership.addVehicle(new Vehicle("8", "Ford", "Bronco", 1980, 20000, "Brown", 50000, "SUV"));
+        dealership.addVehicle(new Vehicle("1","19237" ,"Toyota", "Corolla", 2020, 20000, "Blue", 10000, "Sedan"));
+        dealership.addVehicle(new Vehicle("2", "491210","Honda", "Civic", 2021, 25000, "Red", 5000, "Sedan"));
+        dealership.addVehicle(new Vehicle("3","302934" ,"Ford", "Mustang", 2019, 30000, "Blue", 20000, "Coupe"));
+        dealership.addVehicle(new Vehicle("4","329703" ,"Tesla", "Model 3", 2022, 40000, "White", 1000, "Sedan"));
+        dealership.addVehicle(new Vehicle("5", "9492034","Nissan", "R34", 2002, 150000, "Blue", 60000, "Car"));
+        dealership.addVehicle(new Vehicle("6", "7203840","Nissan", "240Z", 1971, 40000, "Red", 30000, "Car"));
+        dealership.addVehicle(new Vehicle("7", "620374","Chevrolet", "Impala", 1969, 30000, "Black", 80000, "Car"));
+        dealership.addVehicle(new Vehicle("8","820329" ,"Ford", "Bronco", 1980, 20000, "Brown", 50000, "SUV"));
 
         System.out.println("Inventory populated successfully.");
         hasUnsavedChanges = true;
@@ -163,6 +163,8 @@ public class DealershipManager {
         // Get the vehicle details from the user
         System.out.print("ID: ");
         String id = scanner.next();
+        System.out.print("Vin: ");
+        String vin = scanner.next();
         System.out.print("Make: ");
         String make = scanner.next();
         System.out.print("Model: ");
@@ -179,7 +181,7 @@ public class DealershipManager {
         String vehicleType = scanner.next();
 
         // Create a new vehicle with the details
-        Vehicle vehicle = new Vehicle(id, make, model, year, price, color, mileage, vehicleType);
+        Vehicle vehicle = new Vehicle(id, vin, make, model, year, price, color, mileage, vehicleType);
         // Add the vehicle to the dealership
         dealership.addVehicle(vehicle);
         System.out.println("Vehicle added successfully.");

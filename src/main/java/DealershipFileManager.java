@@ -57,15 +57,16 @@ public class DealershipFileManager {
                 String[] vehicleDetails = vehicleInfo.split("\\|");
 
                 String id = vehicleDetails[0];
-                String make = vehicleDetails[1];
-                String model = vehicleDetails[2];
-                int year = Integer.parseInt(vehicleDetails[3]);
-                double price = Double.parseDouble(vehicleDetails[4]);
-                String color = vehicleDetails[5];
-                int mileage = Integer.parseInt(vehicleDetails[6]);
-                String vehicleType = vehicleDetails[7];
+                String vin = vehicleDetails[1];
+                String make = vehicleDetails[2];
+                String model = vehicleDetails[3];
+                int year = Integer.parseInt(vehicleDetails[4]);
+                double price = Double.parseDouble(vehicleDetails[5]);
+                String color = vehicleDetails[6];
+                int mileage = Integer.parseInt(vehicleDetails[7]);
+                String vehicleType = vehicleDetails[8];
 
-                Vehicle vehicle = new Vehicle(id, make, model, year, price, color, mileage, vehicleType);
+                Vehicle vehicle = new Vehicle(id, vin,  make, model, year, price, color, mileage, vehicleType);
                 dealership.addVehicle(vehicle);
             }
             return dealership;

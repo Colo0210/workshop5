@@ -1,7 +1,11 @@
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
 
 public class Main {
+    private static final Scanner scanner = new Scanner(System.in);
         public static void main(String[] args) {
             DealershipManager manager = new DealershipManager("filePath", "DealershipName", "DealershipAddress", "DealershipPhone");
             manager.populateInventory();
@@ -21,7 +25,7 @@ public class Main {
             System.out.println("7 - Save dealership data");
             System.out.println("9 - Remove a vehicle");
             System.out.println("10. View vehicles");
-            System.out.println("11. Choose contract");
+            System.out.println("11. Create a contract");
             System.out.println("99 - Quit");
             userInput = scanner.nextInt();
 
@@ -73,40 +77,7 @@ public class Main {
                     manager.showVehicles();
                     break;
                 case 11:
-                    // handle contract choice
-                    System.out.println("Please choose a contract type:");
-                    System.out.println("1. Sale");
-                    System.out.println("2. Lease");
-
-                    int contractChoice = scanner.nextInt();
-                    ContractType contractType = (contractChoice == 1) ? ContractType.SALE : ContractType.LEASE;
-
-                    // show available vehicles
-                    manager.showVehicles();
-
-                    // prompt for vehicle ID
-                    System.out.println("Please enter the ID of the vehicle you want:");
-                    int vehicleId = scanner.nextInt();
-
-                    // prompt for customer info
-                    System.out.println("Please enter your name:");
-                    String customerName = scanner.nextLine();
-
-                    System.out.println("Please enter your email:");
-                    String customerEmail = scanner.nextLine();
-
-                    System.out.println("Please enter your phone number:");
-                    String customerPhoneNumber = scanner.nextLine();
-
-                    // create new contract and add it to the customer
-                    Vehicle chosenVehicle = dealership.getVehicleById(vehicleId);
-                    Customer customer = new Customer(customerName, customerEmail, customerPhoneNumber);
-                    Contract contract = new Contract(chosenVehicle, customer, contractType);
-                    customer.addContract(contract);
-
-                    // remove the chosen vehicle from the dealership
-                    dealership.removeVehicle(chosenVehicle);
-
+                    createContract();
                     break;
                 case 99:
                     break;
@@ -115,5 +86,65 @@ public class Main {
             }
         } while (userInput != 99);
         scanner.close();
+    }
+    private static void createContract() {
+        // prompt user for contract type
+        System.out.println("Please choose a contract type:");
+        System.out.println("1. Sales Contract");
+        System.out.println("2. Lease Contract");
+
+        String contractType = scanner.nextLine();
+
+        switch (contractType) {
+            case "1":
+                createSalesContract();
+                break;
+            case "2":
+                createLeaseContract();
+                break;
+            default:
+                System.out.println("Invalid contract type, please try again");
+        }
+    }
+
+    private static void createSalesContract() {
+        // get customer and vehicle details
+        System.out.println("Enter customer's name:");
+        String name = scanner.nextLine();
+        System.out.println("Enter customer's email:");
+        String email = scanner.nextLine();
+        // prompt user for vehicle VIN
+        System.out.println("Enter vehicle's VIN:");
+        String vin = scanner.nextLine();
+        Vehicle vehicle = findVehicleByVin(vin); // assuming this method is implemented elsewhere
+        System.out.println("Do you want to finance the vehicle (yes/no)?");
+        boolean finance = scanner.nextLine().equalsIgnoreCase("yes");
+
+        // create a sales contract and save it
+        SalesContract contract = new SalesContract(getCurrentDate(), name, email, vehicle, finance);
+        ContractManager.saveContract(contract);
+    }
+
+    private static void createLeaseContract() {
+        // get customer and vehicle details
+        System.out.println("Enter customer's name:");
+        String name = scanner.nextLine();
+        System.out.println("Enter customer's email:");
+        String email = scanner.nextLine();
+        // prompt user for vehicle VIN
+        System.out.println("Enter vehicle's VIN:");
+        String vin = scanner.nextLine();
+        Vehicle vehicle = findVehicleByVin(vin); // assuming this method is implemented elsewhere
+
+        // create a lease contract and save it
+        LeaseContract contract = new LeaseContract(getCurrentDate(), name, email, vehicle);
+        ContractManager.saveContract(contract);
+    }
+
+    private static String getCurrentDate() {
+        // return current date in the format you need
+        DateFormat df = new SimpleDateFormat("yyyyMMdd");
+        Date dateobj = new Date();
+        return df.format(dateobj);
     }
 }

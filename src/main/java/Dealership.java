@@ -17,6 +17,7 @@ public class Dealership {
         this.inventory = new ArrayList<>();
         this.contractManager = new ContractManager();
     }
+
     public List<Vehicle> getVehiclesByYearRange(int minYear, int maxYear) {
         return inventory.stream()
                 .filter(v -> v.getYear() >= minYear && v.getYear() <= maxYear)
@@ -33,9 +34,10 @@ public class Dealership {
 
         // depending on the type of contract, we create the correct one
         if (contractType == ContractType.SALE) {
-            contract = new SalesContract();
+            contract = new SalesContract(contract.date, contract.getCustomerName(), customerEmail, vehicle, boolean finance);
         } else if (contractType == ContractType.LEASE) {
-            contract = new LeaseContract();
+            contract = new LeaseContract(String date,
+                    String customerName, String customerEmail, Vehicle vehicle);
         } else {
             return false;
         }
@@ -49,16 +51,36 @@ public class Dealership {
 
     // A method to find a contract by ID in the dealership. It uses the contract manager for this.
     public Optional<Contract> findContractById(String contractId) {
-        return contractManager.findContractById(contractId);
+        return Optional.ofNullable(contractManager.findContractById(contractId));
     }
+    public Vehicle findVehicleByVin(String vin) {
+        // assuming you have a list of vehicles named 'vehicles'
+        for (Vehicle vehicle : vehicles) {
+            if (vehicle.getVin().equals(vin)) {
+                return vehicle;
+            }
+        }
+        return null;
+    }
+
+
     public List<Vehicle> getVehiclesByMileageRange(int startMileage, int endMileage) {
         return inventory.stream()
                 .filter(v -> v.getMileage() >= startMileage && v.getMileage() <= endMileage)
                 .collect(Collectors.toList());
     }
-    public void addVehicle(Vehicle vehicle) {
-        inventory.add(vehicle);
+
+    public void addVehicle(Vehicle vehicle) {inventory.add(vehicle);}{
+        Vehicle[] vehicles = new Vehicle[0];
+        for(Vehicle vehicle :vehicles)
+
+    {
+        if (vehicle.getId().equals(vehicle.getId())) {
+            System.out.println("A vehicle with this ID already exists. Please enter a unique ID.");
+        }
     }
+}
+
 
     public boolean removeVehicle(Vehicle vehicle) {
         return inventory.remove(vehicle);

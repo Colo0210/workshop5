@@ -8,9 +8,11 @@ public class Vehicle {
     private int mileage;
     private String vehicleType;
     private boolean isSold;
+    private String vin;
 
-    public Vehicle(String id, String make, String model, int year, double price, String color, int mileage, String vehicleType) {
+    public Vehicle(String id, String vin, String make, String model, int year, double price, String color, int mileage, String vehicleType) {
         this.id = id;
+        this.vin = vin;
         this.make = make;
         this.model = model;
         this.year = year;
@@ -32,7 +34,9 @@ public class Vehicle {
     public String getModel() {
         return model;
     }
-
+    public String getVin() {
+        return vin;
+    }
     public int getYear() {
         return year;
     }
@@ -68,6 +72,10 @@ public class Vehicle {
         }
         return false;
     }
+    public void markSold() {
+        this.isSold = true;
+    }
+
 
     @Override
     public String toString() {
